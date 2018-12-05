@@ -1,0 +1,24 @@
+{
+  "arch": "x86_64",
+  "build": "h439df22_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=7.2.0",
+    "libstdcxx-ng >=7.2.0"
+  ],
+  "features": "",
+  "fn": "pcre-8.42-h439df22_0.tar.bz2",
+  "license": "BSD 3-Clause",
+  "license_family": "BSD",
+  "md5": "a97eeaf9611a4f4c74019db226ec0eff",
+  "name": "pcre",
+  "platform": "linux",
+  "size": 256798,
+  "subdir": "linux-64",
+  "timestamp": 1523631954672,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/pcre-8.42-h439df22_0.tar.bz2",
+  "version": "8.42"
+}

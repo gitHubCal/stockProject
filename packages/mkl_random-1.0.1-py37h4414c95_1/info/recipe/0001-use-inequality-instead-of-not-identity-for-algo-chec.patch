@@ -1,0 +1,25 @@
+From c9783756766c9a13a6fbb3af2f665ff2292d855f Mon Sep 17 00:00:00 2001
+From: Michael Sarahan <msarahan@gmail.com>
+Date: Mon, 5 Mar 2018 08:35:47 -0600
+Subject: [PATCH] use inequality instead of not identity for algo check
+
+---
+ mkl_random/mklrand.pyx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mkl_random/mklrand.pyx b/mkl_random/mklrand.pyx
+index 83cba8a..3f80782 100644
+--- a/mkl_random/mklrand.pyx
++++ b/mkl_random/mklrand.pyx
+@@ -1181,7 +1181,7 @@ cdef class RandomState:
+             if(err):
+                 raise ValueError('The stream state buffer is corrupted')
+             brng_id = irk_get_brng_mkl(self.internal_state)
+-            if (_brng_dict[algorithm_name] is not brng_id):
++            if (_brng_dict[algorithm_name] != brng_id):
+                 raise ValueError('The algorithm name does not match content of the buffer')
+ 
+     # Pickling support:
+-- 
+2.11.1
+

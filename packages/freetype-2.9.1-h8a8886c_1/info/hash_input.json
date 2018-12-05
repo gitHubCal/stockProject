@@ -1,0 +1,5 @@
+{
+  "libpng": "1.6",
+  "zlib": "1.2",
+  "c_compiler": "gcc"
+}

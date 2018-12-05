@@ -1,0 +1,103 @@
+# This file created by conda-build 3.16.2
+# ------------------------------------------------
+
+package:
+    name: numpy
+    version: 1.15.4
+source:
+    patches:
+        - 0001-fix-windows-case-sensitivity.patch
+        - 0002-simplify-arch-flags.patch
+        - 0003-Obtain-and-prefer-custom-gfortran-from-env-variable.patch
+        - 0004-disable-memmap-filename-test-due-to-CI-link-confusio.patch
+        - 0005-disable-broken-tests.patch
+        - 0006-use-mklfft-when-available.patch
+        - 0007-define-mkl_version-in-__init__.py.patch
+        - 0008-intel-umath-optimizations.patch
+        - 0009-intel-mkl_mem-all.patch
+        - 0010-intel-init_mkl.patch
+        - 0011-intel-mkl_random.patch
+        - 0012-Remove-ICC-specific-flags.patch
+        - 0013-Remove-np.invsqrt.patch
+        - 0014-Rewrite-inlining.patch
+    sha256: 3d734559db35aa3697dadcea492a423118c5c55d176da2f3be9c98d4803fc2a7
+    url: https://pypi.io/packages/source/n/numpy/numpy-1.15.4.zip
+build:
+    force_use_keys:
+        - python
+    noarch: false
+    number: '0'
+    string: py37h1d66e8a_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - gfortran_impl_linux-64 7.3.0 hdf63c60_1
+        - gfortran_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libgfortran-ng 7.3.0 hdf63c60_0
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+    host:
+        - blas 1.0 mkl
+        - ca-certificates 2018.03.07 0
+        - intel-openmp 2019.0 118
+        - libedit 3.1.20170329 h6b74fdf_2
+        - libffi 3.2.1 hd88cf55_4
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libgfortran-ng 7.3.0 hdf63c60_0
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - mkl 2018.0.3 1
+        - mkl-devel 2018.0.3 1
+        - mkl-include 2018.0.3 1
+        - ncurses 6.1 hf484d3e_0
+        - openssl 1.1.1 h7b6447c_0
+        - python 3.7.1 h0371630_3
+        - readline 7.0 h7b6447c_5
+        - sqlite 3.25.2 h7b6447c_0
+        - tk 8.6.8 hbc83047_0
+        - xz 5.2.4 h14c3975_4
+        - zlib 1.2.11 ha838bed_2
+    run:
+        - blas 1.0 mkl
+        - libgcc-ng >=7.3.0
+        - libgfortran-ng >=7,<8.0a0
+        - mkl >=2018.0.3
+        - mkl_fft >=1.0.4
+        - mkl_random
+        - numpy-base 1.15.4 py37h81de0dd_0
+        - python >=3.7,<3.8.0a0
+test:
+    commands:
+        - f2py -h
+        - python -c "import numpy; numpy.show_config()"
+    imports:
+        - numpy
+        - numpy.linalg.lapack_lite
+    requires:
+        - gcc_linux-64 7.3.0.*
+        - gfortran_linux-64 7.3.0.*
+        - pytest
+    script: numpy_test.py
+about:
+    description: 'NumPy is the fundamental package needed for scientific computing
+        with Python.
+
+        '
+    dev_source_url: https://github.com/numpy/numpy/tree/master/doc
+    dev_url: https://github.com/numpy/numpy
+    doc_url: https://docs.scipy.org/doc/numpy-1.15.4/reference/
+    home: http://numpy.scipy.org/
+    license: BSD 3-Clause
+    license_file: LICENSE.txt
+    summary: Array processing for numbers, strings, records, and objects.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - jakirkham
+        - msarahan
+        - ocefpaf
+        - pelson
+        - rgommers

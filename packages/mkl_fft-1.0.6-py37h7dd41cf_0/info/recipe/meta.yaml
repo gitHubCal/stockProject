@@ -1,0 +1,82 @@
+# This file created by conda-build 3.15.1
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/mkl_fft-1.0.6-python_3.7-on-linux_64, last modified Thu Sep 27 16:57:56 2018
+# ------------------------------------------------
+
+package:
+    name: mkl_fft
+    version: 1.0.6
+source:
+    sha256: 3c7ed29e203c5b664ecafb11d767d62f9cae4aa56f9a95737e121192a66673bf
+    url: https://github.com/IntelPython/mkl_fft/archive/v1.0.6.tar.gz
+build:
+    number: '0'
+    script: /tmp/build/80754af9/mkl_fft_1538067886895/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh/bin/python
+        setup.py build install --single-version-externally-managed --record=record.txt
+    string: py37h7dd41cf_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - gxx_impl_linux-64 7.3.0 hdf63c60_1
+        - gxx_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+    host:
+        - blas 1.0 mkl
+        - ca-certificates 2018.03.07 0
+        - certifi 2018.8.24 py37_1
+        - cython 0.28.5 py37hf484d3e_0
+        - intel-openmp 2019.0 118
+        - libedit 3.1.20170329 h6b74fdf_2
+        - libffi 3.2.1 hd88cf55_4
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libgfortran-ng 7.3.0 hdf63c60_0
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - mkl 2018.0.3 1
+        - mkl-devel 2018.0.3 1
+        - mkl-include 2018.0.3 1
+        - ncurses 6.1 hf484d3e_0
+        - numpy-base 1.11.3 py37h81de0dd_10
+        - numpy-devel 1.11.3 py37h6bdb83d_10
+        - openssl 1.0.2p h14c3975_0
+        - python 3.7.0 hc3d631a_0
+        - readline 7.0 h7b6447c_5
+        - setuptools 40.2.0 py37_0
+        - sqlite 3.24.0 h84994c4_0
+        - tk 8.6.8 hbc83047_0
+        - xz 5.2.4 h14c3975_4
+        - zlib 1.2.11 ha838bed_2
+    run:
+        - blas 1.0 mkl
+        - libgcc-ng >=7.3.0
+        - libstdcxx-ng >=7.3.0
+        - mkl >=2018.0.3
+        - numpy >=1.11.3,<2.0a0
+        - python >=3.7,<3.8.0a0
+test:
+    commands:
+        - nosetests -v mkl_fft
+    imports:
+        - mkl_fft
+        - mkl_fft._numpy_fft
+        - mkl_fft._scipy_fft
+    requires:
+        - nose
+about:
+    description: NumPy-based implementation of Fast Fourier Transform using Intel
+        (R) Math Kernel Library. Supports in-place and out-of-place, 1D and ND complex
+        FFT on arrays of single and double precision with arbitrary memory layout,
+        so long as array strides are multiples of its itemsize.
+    home: http://github.com/IntelPython/mkl_fft
+    license: BSD 3-Clause
+    license_file: LICENSE.txt
+    summary: NumPy-based implementation of Fast Fourier Transform using Intel (R)
+        Math Kernel Library.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - oleksandr-pavlyk

@@ -1,0 +1,65 @@
+{
+  "paths": [
+    {
+      "_path": "lib/python3.7/site-packages/cssselect-1.0.3-py3.7.egg-info/PKG-INFO",
+      "path_type": "hardlink",
+      "sha256": "3bade0fbcb9c5307700244f5c723b896efccfcc642930f649145a3f25958eff9",
+      "size_in_bytes": 2671
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect-1.0.3-py3.7.egg-info/SOURCES.txt",
+      "path_type": "hardlink",
+      "sha256": "41763b6f7989b35c3d1ece6834c4f7753dea62ea213e1474c6c6460748fbf67f",
+      "size_in_bytes": 306
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect-1.0.3-py3.7.egg-info/dependency_links.txt",
+      "path_type": "hardlink",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_in_bytes": 1
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect-1.0.3-py3.7.egg-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "18a2b752dbbf71ea20e822b6ed55cd75bca2a869e8c89a37f7bd052e8e497545",
+      "size_in_bytes": 10
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "1a2133fb7f090d25c42f88ab271add92b9ec3eac3d15d6d1536b8a8291bb236b",
+      "size_in_bytes": 639
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect/__pycache__/__init__.cpython-37.pyc",
+      "path_type": "hardlink",
+      "sha256": "87ef08470a9e61dd455e67ce6c9fa82a4f20b09b3e6997f15b0e699f85262a9c",
+      "size_in_bytes": 806
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect/__pycache__/parser.cpython-37.pyc",
+      "path_type": "hardlink",
+      "sha256": "b8d622a107d3e1184ffa463b5df766a859632b5074b259939114f9ff53d9cd83",
+      "size_in_bytes": 20487
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect/__pycache__/xpath.cpython-37.pyc",
+      "path_type": "hardlink",
+      "sha256": "80bee21ce48ec6196515be9c2d4820210c40af44678153b3a3de72364f4feb6d",
+      "size_in_bytes": 21087
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect/parser.py",
+      "path_type": "hardlink",
+      "sha256": "98bd0ba238b16a01f623517d9462d54d713912d54978ee0249dcf9b004b8f5d9",
+      "size_in_bytes": 23500
+    },
+    {
+      "_path": "lib/python3.7/site-packages/cssselect/xpath.py",
+      "path_type": "hardlink",
+      "sha256": "8050d9df0c843a416457218f82d21f02dcf3f1b3684b2c95886c07d4b0b2427d",
+      "size_in_bytes": 27790
+    }
+  ],
+  "paths_version": 1
+}

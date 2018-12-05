@@ -1,0 +1,43 @@
+Stock Data
+
+1) Parse webpage searching for key words indicating market attitudes
+
+	A) Start with single webpage
+
+		I) Assign weights based on word
+		II) Pass data onto analyze data portion
+
+ 	B) Move onto multiple webpages everyday in major financial news sites
+
+		I) Done with machine learning (tensorflow)
+		
+2) Analyze data (Python or C++)
+	
+	A) Analyze historical stock data (Google finance, Yahoo finance)
+	B) Analyze market data words (from webpage downloaded) and compare with NASDAQ, DOW, etc.	
+
+		I) Mathematical computations (avg., box and whisker plots, etc.) involving 
+		   various data such as P/E ratio, volume, et...
+
+			*Figure out what I'm comparing (ex. two dates, highs and lows)
+			*Regression lines (different functions/rate at which prices increased) based on 
+			 different sectors
+			*Based on specific dates, analyze what happened that day (why price jumped or dipped)
+			 via news sites/words etc. e.g. specific date pull up news articles
+			*Each data object (i.e. data about specific date) will have news stories and words about
+			 that date for each stock  to compare with other data objects
+				
+				-Allow for more data to be added to point (i.e. debt, credit rating et.)
+
+		II) Visualize data using software such as R or Python (Pandas) in 2-D or 3-D 
+		    forms. 
+			
+			*Figure out what types of graphs/charts I need.
+				
+				-Prediction line where stock will go (machine learning)				
+
+			*Results of graphs are screenshots 
+	
+	C) Analyze real-time data for both (if possible)
+
+3) Display on executable win32 program or webpage (Amazon Web Services)

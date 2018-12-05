@@ -1,0 +1,18 @@
+{
+  "gstreamer": "1.14",
+  "jpeg": "9",
+  "fontconfig": "2.13",
+  "glib": "2.56",
+  "qtwebkit": "true",
+  "freetype": "2.9",
+  "libxml2": "2.9",
+  "zlib": "1.2",
+  "gst_plugins_base": "1.14",
+  "sqlite": "3",
+  "expat": "2.2",
+  "cxx_compiler": "gxx",
+  "dbus": "1",
+  "icu": "58",
+  "c_compiler": "gcc",
+  "libpng": "1.6"
+}

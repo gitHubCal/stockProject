@@ -1,0 +1,6 @@
+{
+  "icu": "58",
+  "libxml2": "2.9",
+  "VERBOSE_AT": "V=1",
+  "c_compiler": "gcc"
+}

@@ -1,0 +1,22 @@
+{
+  "arch": "x86_64",
+  "build": "py37_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "python >=3.7,<3.8.0a0"
+  ],
+  "features": "",
+  "fn": "idna-2.7-py37_0.tar.bz2",
+  "license": "BSD Like",
+  "md5": "175bf6e6dbb2782dae983b39461b60c0",
+  "name": "idna",
+  "platform": "linux",
+  "size": 101529,
+  "subdir": "linux-64",
+  "timestamp": 1531342378046,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/idna-2.7-py37_0.tar.bz2",
+  "version": "2.7"
+}

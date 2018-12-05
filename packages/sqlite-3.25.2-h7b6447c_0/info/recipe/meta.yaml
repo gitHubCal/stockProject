@@ -1,0 +1,60 @@
+# This file created by conda-build 3.15.1
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/sqlite-3.25.2-on-linux_64, last modified Thu Sep 27 20:59:52 2018
+# ------------------------------------------------
+
+package:
+    name: sqlite
+    version: 3.25.2
+source:
+    fn: sqlite-autoconf-3250200.tar.gz
+    sha1: aedfbdc14eb700099434d6a743135743cff47393
+    url: https://www.sqlite.org/2018/sqlite-autoconf-3250200.tar.gz
+build:
+    number: '0'
+    run_exports:
+        - sqlite >=3.25.2,<4.0a0
+    string: h7b6447c_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - make 4.2.1 h1bed415_1
+    commands:
+        - sqlite3 --version
+    host:
+        - libedit 3.1.20170329 h6b74fdf_2
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - ncurses 6.1 hf484d3e_0
+    run:
+        - libedit >=3.1.20170329,<3.2.0a0
+        - libgcc-ng >=7.3.0
+about:
+    description: 'SQLite is a self-contained, high-reliability, embedded, full-featured,
+
+        public-domain, SQL database engine.It is the most used database engine
+
+        in the world.
+
+        '
+    dev_url: https://github.com/mackyle/sqlite
+    doc_source_url: https://github.com/mackyle/sqlite/tree/master/doc
+    doc_url: http://www.sqlite.org/docs.html
+    home: http://www.sqlite.org/
+    license: Public-Domain (http://www.sqlite.org/copyright.html)
+    license_url: http://www.sqlite.org/copyright.html
+    summary: Implements a self-contained, zero-configuration, SQL database engine.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - jakirkham
+        - jjhelmus
+        - mingwandroid
+        - msarahan
+        - ocefpaf

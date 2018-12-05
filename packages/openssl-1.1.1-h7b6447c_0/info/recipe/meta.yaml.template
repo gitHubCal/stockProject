@@ -1,0 +1,62 @@
+{% set name="openssl" %}
+{% set version="1.1.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: http://www.openssl.org/source/{{ name }}-{{ version }}.tar.gz
+  sha256: 2836875a0f89c03d0fdf483941512613a50cfb421d6fd94b9f41d7279d586a3d
+  patches:
+    - 0001-win32-Fix-yasm-compatibility.patch
+
+build:
+  number: 0
+  no_link: lib/libcrypto.so.1.1        # [linux]
+  no_link: lib/libcrypto.1.1.dylib     # [osx]
+  has_prefix_files:                      # [unix]
+    - bin/c_rehash                       # [unix]
+    - lib/pkgconfig/libcrypto.pc         # [unix]
+    - lib/pkgconfig/libssl.pc            # [unix]
+    - lib/pkgconfig/openssl.pc           # [unix]
+  run_exports:
+    # openssl's versioning is X.Y.Z(rev), where rev is really the patch release ID
+    #    This pin allows the patch release to be >= the build-time openssl version.
+    - {{ pin_subpackage('openssl', max_pin='x.x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - nasm               # [win]
+    - make               # [unix]
+  host:
+    # technically a build tool, but the windows makefile really wants to find it in the host env.
+    #    easier to do this than carry a patch.
+    - perl
+  run:
+    - ca-certificates
+
+test:
+  commands:
+    - copy NUL checksum.txt        # [win]
+    - touch checksum.txt           # [unix]
+    - openssl sha256 checksum.txt
+
+about:
+  home: http://www.openssl.org/
+  license_file: LICENSE
+  license: OpenSSL
+  license_family: Apache
+  summary: OpenSSL is an open-source implementation of the SSL and TLS protocols
+  dev_url: https://github.com/openssl/openssl
+  doc_url: https://www.openssl.org/docs/man1.0.2/
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - jjhelmus
+    - msarahan
+    - ocefpaf
+    - pelson

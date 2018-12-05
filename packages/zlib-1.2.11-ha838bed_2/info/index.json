@@ -1,0 +1,15 @@
+{
+  "arch": "x86_64",
+  "build": "ha838bed_2",
+  "build_number": 2,
+  "depends": [
+    "libgcc-ng 7.2.0.*"
+  ],
+  "license": "zlib",
+  "license_family": "Other",
+  "name": "zlib",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1510092253691,
+  "version": "1.2.11"
+}

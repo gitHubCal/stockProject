@@ -1,0 +1,73 @@
+# This file created by conda-build 3.8.0
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/dbus-1.13.2-on-linux_64, last modified Sat Apr 14 10:07:44 2018
+# ------------------------------------------------
+
+package:
+    name: dbus
+    version: 1.13.2
+source:
+    patches:
+        - 0001-Add-var-lib-dbus-machine-id-as-a-fallback.patch
+        - 0002-Make-it-possible-to-read-files-on-proc-which-reports.patch
+        - 0003-Use-proc-sys-kernel-random-boot_id-as-last-resort-fa.patch
+        - 0004-disable-fd-limit-tests-not-supported-in-docker.patch
+    sha256: 945deb349a7e2999184827c17351c1bf93c6395b9c3ade0c91cad42cb93435b1
+    url: http://dbus.freedesktop.org/releases/dbus/dbus-1.13.2.tar.gz
+build:
+    number: '1'
+    run_exports:
+        - dbus >=1.13.2,<2.0a0
+    string: h714fa37_1
+requirements:
+    build:
+        - binutils_impl_linux-64 2.28.1 had2808c_3
+        - binutils_linux-64 7.2.0 26
+        - gcc_impl_linux-64 7.2.0 habb00fd_3
+        - gcc_linux-64 7.2.0 26
+        - libgcc-ng 7.2.0 hdf63c60_3
+        - libstdcxx-ng 7.2.0 hdf63c60_3
+        - pkg-config 0.29.2 h1bed415_8
+    host:
+        - expat 2.2.5 he0dffb1_0
+        - glib 2.56.1 h000015b_0
+        - libffi 3.2.1 hd88cf55_4
+        - libgcc-ng 7.2.0 hdf63c60_3
+        - libstdcxx-ng 7.2.0 hdf63c60_3
+        - pcre 8.42 h439df22_0
+        - zlib 1.2.11 ha838bed_2
+    run:
+        - expat
+        - expat >=2.2.5,<3.0a0
+        - glib >=2.56.1,<2.57.0a0
+        - libgcc-ng >=7.2.0
+test:
+    commands:
+        - dbus-daemon --version
+        - dbus-uuidgen
+about:
+    description: 'D-Bus is a message bus system, a simple way for applications
+
+        to talk to one another. In addition to interprocess communication, D-Bus helps
+
+        coordinate process lifecycle; it makes it simple and reliable to code a "single
+
+        instance" application or daemon, and to launch applications and daemons on
+
+        demand when their services are needed.
+
+        '
+    dev_url: git://anongit.freedesktop.org/dbus/dbus
+    doc_source_url: https://cgit.freedesktop.org/dbus/dbus/tree/doc
+    doc_url: https://www.freedesktop.org/wiki/IntroductionToDBus/
+    home: http://www.freedesktop.org/wiki/Software/dbus/
+    license: GPL2
+    license_file: COPYING
+    summary: Simple message bus system for applications to talk to one another
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - ccordoba12
+        - mingwandroid
+        - nehaljwani

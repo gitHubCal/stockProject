@@ -1,0 +1,14 @@
+prefix=/home/calvin/python_projects/stockProject
+exec_prefix=/home/calvin/python_projects/stockProject
+libdir=/home/calvin/python_projects/stockProject/lib
+includedir=/home/calvin/python_projects/stockProject/include
+
+Name: FreeType 2
+URL: https://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 22.1.16
+Requires:
+Requires.private: 
+Libs: -L${libdir} -lfreetype
+Libs.private: -lz -L/home/calvin/python_projects/stockProject/lib -lpng16 -lm -lz -lm
+Cflags: -I${includedir}/freetype2

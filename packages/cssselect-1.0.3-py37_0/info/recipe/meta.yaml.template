@@ -1,0 +1,45 @@
+{% set name = "cssselect" %}
+{% set version = "1.0.3" %}
+{% set sha256 = "203d9691c42c13cffe26a2f8fc714977882fcf54a6df82c8eda3371f6beaecdb" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://github.com/scrapy/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  host:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+    - cssselect
+
+about:
+  home: https://pythonhosted.org/cssselect/
+  license: BSD 3-Clause
+  license_file: LICENSE
+  summary: CSS Selectors for Python
+  description: |
+    Cssselect parses CSS3 Selectors and translate them to XPath 1.0
+    expressions. Such expressions can be used in lxml or another XPath engine
+    to find the matching elements in an XML or HTML document.
+  doc_url: https://cssselect.readthedocs.io/en/latest/
+  doc_source_url: https://github.com/scrapy/cssselect/blob/master/README.rst
+  dev_url: https://github.com/SimonSapin/cssselect
+
+extra:
+  recipe-maintainers:
+    - vamega

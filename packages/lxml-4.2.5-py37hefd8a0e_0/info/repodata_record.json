@@ -1,0 +1,25 @@
+{
+  "arch": "x86_64",
+  "build": "py37hefd8a0e_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "libgcc-ng >=7.3.0",
+    "libxml2 >=2.9.8,<2.10.0a0",
+    "libxslt >=1.1.32,<2.0a0",
+    "python >=3.7,<3.8.0a0"
+  ],
+  "features": "",
+  "fn": "lxml-4.2.5-py37hefd8a0e_0.tar.bz2",
+  "license": "BSD 3-Clause, GPL-2.0, ZPL-2.0, and ElementTree",
+  "md5": "5052de2c75fdf1c419fd2b1bf6258b4b",
+  "name": "lxml",
+  "platform": "linux",
+  "size": 1683696,
+  "subdir": "linux-64",
+  "timestamp": 1536698509589,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/lxml-4.2.5-py37hefd8a0e_0.tar.bz2",
+  "version": "4.2.5"
+}

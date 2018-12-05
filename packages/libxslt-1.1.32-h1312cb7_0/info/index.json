@@ -1,0 +1,16 @@
+{
+  "arch": "x86_64",
+  "build": "h1312cb7_0",
+  "build_number": 0,
+  "depends": [
+    "icu >=58.2,<59.0a0",
+    "libgcc-ng >=7.2.0",
+    "libxml2 >=2.9.7,<2.10.0a0"
+  ],
+  "license": "MIT",
+  "name": "libxslt",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1516986820353,
+  "version": "1.1.32"
+}

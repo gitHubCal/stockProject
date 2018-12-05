@@ -1,0 +1,32 @@
+{
+  "arch": "x86_64",
+  "build": "py37h5429711_0",
+  "build_number": 0,
+  "depends": [
+    "cycler >=0.10",
+    "freetype >=2.9.1,<3.0a0",
+    "icu >=58.2,<59.0a0",
+    "kiwisolver",
+    "libgcc-ng >=7.3.0",
+    "libpng >=1.6.35,<1.7.0a0",
+    "libstdcxx-ng >=7.3.0",
+    "numpy",
+    "pyparsing",
+    "pyqt 5.9.*",
+    "python >=3.7,<3.8.0a0",
+    "python-dateutil",
+    "pytz",
+    "setuptools",
+    "tk 8.6.*",
+    "tk >=8.6.8,<8.7.0a0",
+    "tornado",
+    "zlib >=1.2.11,<1.3.0a0"
+  ],
+  "license": "PSF-based",
+  "license_family": "PSF",
+  "name": "matplotlib",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1540486096610,
+  "version": "3.0.1"
+}

@@ -1,0 +1,18 @@
+{
+  "arch": "x86_64",
+  "build": "h26e45fe_1",
+  "build_number": 1,
+  "depends": [
+    "icu >=58.2,<59.0a0",
+    "libgcc-ng >=7.2.0",
+    "xz >=5.2.4,<6.0a0",
+    "zlib >=1.2.11,<1.3.0a0"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "libxml2",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1527065267245,
+  "version": "2.9.8"
+}

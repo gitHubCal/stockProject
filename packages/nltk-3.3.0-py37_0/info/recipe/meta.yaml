@@ -1,0 +1,84 @@
+# This file created by conda-build 3.10.9+36.gd10dbde.dirty
+# meta.yaml template originally from:
+# /home/rdonnelly/conda/aggregate/nltk-feedstock/recipe, last modified Thu May 10 16:08:48 2018
+# ------------------------------------------------
+
+package:
+    name: nltk
+    version: 3.3.0
+source:
+    fn: nltk-3.3.0.zip
+    sha256: fe0eda251be65843be86d7de9abfbf7161732256f742e623b21243ec47bdb718
+    url: https://pypi.io/packages/source/n/nltk/nltk-3.3.0.zip
+build:
+    number: '0'
+    script: python setup.py install --single-version-externally-managed --record=record.txt
+    string: py37_0
+requirements:
+    host:
+        - ca-certificates 2018.03.07 0
+        - certifi 2018.4.16 py37_0
+        - libedit 3.1.20170329 h6b74fdf_2
+        - libffi 3.2.1 hd88cf55_4
+        - libgcc-ng 7.2.0 hdf63c60_3
+        - libstdcxx-ng 7.2.0 hdf63c60_3
+        - ncurses 6.1 hf484d3e_0
+        - openssl 1.0.2o h20670df_0
+        - python 3.7.0 hc3d631a_0
+        - readline 7.0 ha6073c6_4
+        - setuptools 39.2.0 py37_0
+        - sqlite 3.24.0 h84994c4_0
+        - tk 8.6.7 hc745277_3
+        - xz 5.2.4 h14c3975_4
+        - zlib 1.2.11 ha838bed_2
+    run:
+        - python >=3.7,<3.8.0a0
+        - six
+test:
+    imports:
+        - nltk
+        - nltk.app
+        - nltk.ccg
+        - nltk.chat
+        - nltk.chunk
+        - nltk.classify
+        - nltk.cluster
+        - nltk.corpus
+        - nltk.corpus.reader
+        - nltk.draw
+        - nltk.inference
+        - nltk.metrics
+        - nltk.misc
+        - nltk.parse
+        - nltk.sem
+        - nltk.sentiment
+        - nltk.stem
+        - nltk.tag
+        - nltk.tbl
+        - nltk.test
+        - nltk.test.unit
+        - nltk.test.unit.translate
+        - nltk.tokenize
+        - nltk.translate
+        - nltk.twitter
+about:
+    description: 'NLTK has been called a wonderful tool for teaching and working in
+
+        computational linguistics using Python and an amazing library to play with
+
+        natural language.
+
+        '
+    dev_url: https://github.com/nltk/nltk
+    doc_source_url: https://github.com/nltk/nltk/blob/develop/web/index.rst
+    doc_url: https://nltk.readthedocs.io/en/latest/
+    home: http://nltk.org/
+    license: Apache 2.0
+    license_family: Apache
+    license_file: LICENSE.txt
+    summary: Build Python programs to work with human language data
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - pmlandwehr

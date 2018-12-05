@@ -1,0 +1,17 @@
+{
+  "paths": [
+    {
+      "_path": "lib/libiomp5.so",
+      "path_type": "hardlink",
+      "sha256": "13fdec814b59c12de8d74e6a83de194082de18d871812e33a6d8a5c44b85bdae",
+      "size_in_bytes": 2148379
+    },
+    {
+      "_path": "lib/libiompstubs5.so",
+      "path_type": "hardlink",
+      "sha256": "6f221b138fb14c1c853c02f91cb4bb1db55ed7bc6d610fc683b02b4a2abd6b58",
+      "size_in_bytes": 111367
+    }
+  ],
+  "paths_version": 1
+}

@@ -1,0 +1,11 @@
+{
+  "zlib": "1.2",
+  "libpng": "1.6",
+  "cxx_compiler": "gxx",
+  "icu": "58",
+  "c_compiler_version": "7.3.0",
+  "numpy": "1.11",
+  "cxx_compiler_version": "7.3.0",
+  "freetype": "2.9",
+  "c_compiler": "gcc"
+}

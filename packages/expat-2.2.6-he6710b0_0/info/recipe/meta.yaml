@@ -1,0 +1,51 @@
+# This file created by conda-build 3.13.0
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/expat-2.2.6-on-linux_64, last modified Mon Aug 27 18:47:36 2018
+# ------------------------------------------------
+
+package:
+    name: expat
+    version: 2.2.6
+source:
+    sha256: 17b43c2716d521369f82fc2dc70f359860e90fa440bea65b3b85f0b246ea81f2
+    url: https://github.com/libexpat/libexpat/releases/download/R_2_2_6/expat-2.2.6.tar.bz2
+build:
+    number: '0'
+    run_exports:
+        - expat >=2.2.6,<3.0a0
+    string: he6710b0_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - gxx_impl_linux-64 7.3.0 hdf63c60_1
+        - gxx_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - make 4.2.1 h1bed415_1
+    host:
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+    run:
+        - libgcc-ng >=7.3.0
+        - libstdcxx-ng >=7.3.0
+test:
+    commands:
+        - xmlwf -h
+        - conda inspect linkages -p $PREFIX expat
+about:
+    home: http://expat.sourceforge.net/
+    license: MIT
+    license_file: COPYING
+    summary: Expat XML parser library in C.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - kwilcox
+        - mingwandroid
+        - msarahan
+        - ocefpaf
+        - pelson

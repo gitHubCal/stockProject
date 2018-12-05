@@ -1,0 +1,61 @@
+# This file created by conda-build 3.16.1
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/openssl-1.1.1-on-linux_64, last modified Tue Oct 16 20:45:48 2018
+# ------------------------------------------------
+
+package:
+    name: openssl
+    version: 1.1.1
+source:
+    fn: openssl-1.1.1.tar.gz
+    patches:
+        - 0001-win32-Fix-yasm-compatibility.patch
+    sha256: 2836875a0f89c03d0fdf483941512613a50cfb421d6fd94b9f41d7279d586a3d
+    url: http://www.openssl.org/source/openssl-1.1.1.tar.gz
+build:
+    has_prefix_files:
+        - bin/c_rehash
+        - lib/pkgconfig/libcrypto.pc
+        - lib/pkgconfig/libssl.pc
+        - lib/pkgconfig/openssl.pc
+    no_link: lib/libcrypto.so.1.1
+    number: '0'
+    run_exports:
+        - openssl >=1.1.1,<1.1.2.0a0
+    string: h7b6447c_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - make 4.2.1 h1bed415_1
+    host:
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - perl 5.26.2 h14c3975_0
+    run:
+        - ca-certificates
+        - libgcc-ng >=7.3.0
+test:
+    commands:
+        - touch checksum.txt
+        - openssl sha256 checksum.txt
+about:
+    dev_url: https://github.com/openssl/openssl
+    doc_url: https://www.openssl.org/docs/man1.0.2/
+    home: http://www.openssl.org/
+    license: OpenSSL
+    license_family: Apache
+    license_file: LICENSE
+    summary: OpenSSL is an open-source implementation of the SSL and TLS protocols
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - jakirkham
+        - jjhelmus
+        - msarahan
+        - ocefpaf
+        - pelson

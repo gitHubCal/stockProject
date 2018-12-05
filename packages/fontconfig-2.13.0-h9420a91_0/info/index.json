@@ -1,0 +1,19 @@
+{
+  "arch": "x86_64",
+  "build": "h9420a91_0",
+  "build_number": 0,
+  "depends": [
+    "freetype >=2.9.1,<3.0a0",
+    "icu >=58.2,<59.0a0",
+    "libgcc-ng >=7.2.0",
+    "libpng >=1.6.34,<1.7.0a0",
+    "libuuid >=1.0.3,<2.0a0",
+    "libxml2 >=2.9.8,<2.10.0a0"
+  ],
+  "license": "MIT",
+  "name": "fontconfig",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1527253867511,
+  "version": "2.13.0"
+}

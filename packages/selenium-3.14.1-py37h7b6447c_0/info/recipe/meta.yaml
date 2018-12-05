@@ -1,0 +1,77 @@
+# This file created by conda-build 3.15.1
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/selenium-3.14.1-python_3.7-on-linux_64, last modified Mon Oct 15 22:31:48 2018
+# ------------------------------------------------
+
+package:
+    name: selenium
+    version: 3.14.1
+source:
+    sha256: ab192cd046164c40fabcf44b47c66c8b12495142f4a69dcc55ea6eeef096e614
+    url: https://pypi.org/packages/source/s/selenium/selenium-3.14.1.tar.gz
+build:
+    number: '0'
+    script: /tmp/build/80754af9/selenium_1539652800406/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place/bin/python
+        -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+    string: py37h7b6447c_0
+requirements:
+    build:
+        - binutils_impl_linux-64 2.31.1 h6176602_1
+        - binutils_linux-64 2.31.1 h6176602_3
+        - gcc_impl_linux-64 7.3.0 habb00fd_1
+        - gcc_linux-64 7.3.0 h553295d_3
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+    host:
+        - ca-certificates 2018.03.07 0
+        - certifi 2018.10.15 py37_0
+        - libedit 3.1.20170329 h6b74fdf_2
+        - libffi 3.2.1 hd88cf55_4
+        - libgcc-ng 8.2.0 hdf63c60_1
+        - libstdcxx-ng 8.2.0 hdf63c60_1
+        - ncurses 6.1 hf484d3e_0
+        - openssl 1.0.2p h14c3975_0
+        - pip 10.0.1 py37_0
+        - python 3.7.0 h6e4f718_3
+        - readline 7.0 h7b6447c_5
+        - setuptools 40.4.3 py37_0
+        - sqlite 3.25.2 h7b6447c_0
+        - tk 8.6.8 hbc83047_0
+        - wheel 0.32.1 py37_0
+        - xz 5.2.4 h14c3975_4
+        - zlib 1.2.11 ha838bed_2
+    run:
+        - libgcc-ng >=7.3.0
+        - python >=3.7,<3.8.0a0
+        - urllib3
+test:
+    imports:
+        - selenium
+        - selenium.common
+        - selenium.webdriver
+        - selenium.webdriver.android
+        - selenium.webdriver.chrome
+        - selenium.webdriver.common
+        - selenium.webdriver.common.html5
+        - selenium.webdriver.edge
+        - selenium.webdriver.firefox
+        - selenium.webdriver.ie
+        - selenium.webdriver.opera
+        - selenium.webdriver.phantomjs
+        - selenium.webdriver.remote
+        - selenium.webdriver.support
+about:
+    dev_url: https://github.com/SeleniumHQ/selenium/
+    doc_url: http://www.seleniumhq.org/docs/
+    home: http://www.seleniumhq.org/
+    license: Apache 2.0
+    license_family: Apache
+    license_file: /tmp/build/80754af9/rsync-recipes/selenium-3.14.1-python_3.7-on-linux_64/LICENSE
+    summary: Python bindings for the Selenium WebDriver for automating web browser
+        interaction.
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - ocefpaf
+        - pmlandwehr

@@ -1,0 +1,26 @@
+{
+  "arch": "x86_64",
+  "build": "py37_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "constrains": [],
+  "depends": [
+    "certifi >=2017.4.17",
+    "chardet >=3.0.2,<3.1.0",
+    "idna >=2.5,<2.8",
+    "python >=3.7,<3.8.0a0",
+    "urllib3 >=1.21.1,<1.24"
+  ],
+  "features": "",
+  "fn": "requests-2.20.0-py37_0.tar.bz2",
+  "license": "Apache 2.0",
+  "md5": "41602dc9c2ea961d45c4bd9b4a6f9fa3",
+  "name": "requests",
+  "platform": "linux",
+  "size": 86420,
+  "subdir": "linux-64",
+  "timestamp": 1540229690297,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/requests-2.20.0-py37_0.tar.bz2",
+  "version": "2.20.0"
+}

@@ -1,0 +1,12 @@
+prefix=/home/calvin/python_projects/stockProject
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+
+Name: libxslt
+Version: 1.1.32
+Description: XSLT library version 2.
+Requires: libxml-2.0
+Libs: -L${libdir} -lxslt -L/home/calvin/python_projects/stockProject/lib -lxml2 -L/home/calvin/python_projects/stockProject/lib -lz -L/home/calvin/python_projects/stockProject/lib -llzma -L/home/calvin/python_projects/stockProject/lib -L/home/calvin/python_projects/stockProject/lib -licui18n -licuuc -licudata -lm -ldl -lm  -lrt
+Cflags: -I${includedir}

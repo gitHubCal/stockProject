@@ -1,0 +1,95 @@
+{% set version = "8.42" %}
+
+package:
+  name: pcre
+  version: {{ version }}
+
+source:
+  fn: pcre-{{ version }}.tar.gz
+  url: ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-{{ version }}.tar.gz
+  sha256: 69acbc2fbdefb955d42a4c606dfde800c2885711d2979e356c0636efde9ec3b5
+  patches:
+    - 0001-Define-snprintf-for-old-VS.patch
+    # CMake is brain-damaged. It looks around on PATH for libs. Yeah. Completely crazy.
+    - 0002-Workaround-CMake-FIND_PACKAGE-ZLIB-looking-on-PATH-misfeature.patch
+
+build:
+  number: 0
+  run_exports:
+    # mostly OK, but some scary symbol removal.  Let's try for trusting them.
+    #    https://abi-laboratory.pro/tracker/timeline/pcre/
+    - {{ pin_subpackage('pcre', max_pin='x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake        # [win]
+    - pkg-config   # [unix]
+    - libtool      # [unix]
+  # We need something (without run_exports) in here as otherwise:
+  # 1. host prefix is not created
+  # 2. strong run_exports do not get installed into host prefix
+  # 3. pyldd (correctly) identifies that:
+  #    ERROR (pcre,lib/libpcrecpp.0.dylib): Needed DSO /usr/lib/libc++.1.dylib not found in any CDT/compiler package, nor the whitelist?!
+  # (the reason we do not want run exports is because we do not want any unnecessary dependencies so a build tool will suffice).
+  # ping @msarahan
+  host:
+    - cmake  # [unix]
+
+test:
+  commands:
+    # CLI tests.
+    - pcre-config --version                             # [unix]
+    - pcregrep --help
+    - pcretest --help
+
+    # Verify headers.
+    - test -f "${PREFIX}/include/pcre.h"                # [unix]
+    - test -f "${PREFIX}/include/pcre_scanner.h"        # [unix]
+    - test -f "${PREFIX}/include/pcre_stringpiece.h"    # [unix]
+    - test -f "${PREFIX}/include/pcrecpp.h"             # [unix]
+    - test -f "${PREFIX}/include/pcrecpparg.h"          # [unix]
+    - test -f "${PREFIX}/include/pcreposix.h"           # [unix]
+    - if not exist %LIBRARY_INC%\pcre.h exit 1          # [win]
+    - if not exist %LIBRARY_INC%\pcre_scanner.h exit 1  # [win]
+    - if not exist %LIBRARY_INC%\pcre_stringpiece.h exit 1  # [win]
+    - if not exist %LIBRARY_INC%\pcrecpp.h exit 1       # [win]
+    - if not exist %LIBRARY_INC%\pcrecpparg.h exit 1    # [win]
+    - if not exist %LIBRARY_INC%\pcreposix.h exit 1     # [win]
+
+    # Verify libraries.
+    - test -f "${PREFIX}/lib/libpcre.a"                 # [unix]
+    - test -f "${PREFIX}/lib/libpcre.so"                # [linux]
+    - test -f "${PREFIX}/lib/libpcre.dylib"             # [osx]
+    - test -f "${PREFIX}/lib/libpcrecpp.a"              # [unix]
+    - test -f "${PREFIX}/lib/libpcrecpp.so"             # [linux]
+    - test -f "${PREFIX}/lib/libpcrecpp.dylib"          # [osx]
+    - test -f "${PREFIX}/lib/libpcreposix.a"            # [unix]
+    - test -f "${PREFIX}/lib/libpcreposix.so"           # [linux]
+    - test -f "${PREFIX}/lib/libpcreposix.dylib"        # [osx]
+    - if not exist %LIBRARY_LIB%\pcre.lib exit 1        # [win]
+    - if not exist %LIBRARY_BIN%\pcre.dll exit 1        # [win]
+    - if not exist %LIBRARY_LIB%\pcreposix.lib exit 1   # [win]
+    - if not exist %LIBRARY_BIN%\pcreposix.dll exit 1   # [win]
+    - if not exist %LIBRARY_LIB%\pcrecpp.lib exit 1     # [win]
+    - if not exist %LIBRARY_BIN%\pcrecpp.dll exit 1     # [win]
+
+about:
+  home: http://www.pcre.org/
+  license: BSD 3-Clause
+  license_family: BSD
+  summary: Regular expression pattern matching using the same syntax and semantics as Perl 5.
+  description: |
+    PCRE implement regular expression pattern matching using the same syntax and
+    semantics as Perl 5. PCRE has its own native API, as well as a set of wrapper
+    functions that correspond to the POSIX regular expression API.
+  doc_url: http://www.pcre.org/original/doc/html/
+  doc_source_url: https://vcs.pcre.org/pcre2/code/trunk/doc/?sortdir=down
+  dev_url: http://vcs.pcre.org/pcre2/
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - scopatz
+    - sebastian-luna-valero

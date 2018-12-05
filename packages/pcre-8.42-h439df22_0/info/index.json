@@ -1,0 +1,16 @@
+{
+  "arch": "x86_64",
+  "build": "h439df22_0",
+  "build_number": 0,
+  "depends": [
+    "libgcc-ng >=7.2.0",
+    "libstdcxx-ng >=7.2.0"
+  ],
+  "license": "BSD 3-Clause",
+  "license_family": "BSD",
+  "name": "pcre",
+  "platform": "linux",
+  "subdir": "linux-64",
+  "timestamp": 1523631954672,
+  "version": "8.42"
+}
