@@ -1,60 +1,56 @@
+#!../bin/python3
+#Invoke interpreter directly from miniconda env in directory i.e. /home/calvin/python_projects/stockProject
+
 import sys
 import requests
 import socket
-import os.path
+import os
 import time
 import datetime
-import matplotlib.pyplot
-import matplotlib.dates
-import numpy
-from pip import __main__
+import matplotlib.pyplot as mPlot
+import matplotlib.dates as mDates
+import numpy as np
 from selenium import webdriver
-from data import Data
 from stock import Stock
-
 from multiprocessing.dummy import Pool as Threadpool
 from functools import partial
 
 def checkConnection():
+    print("Checking connection.\n")
     #Create socket connection
     try: 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #AF_INET is ipv4 and SOCK_STREAM is TCP Protocol
-        print("Success creating socket connection.")
+        print("Success creating socket connection.\n")
     except: 
-        print("Failure to create socket connection.")
+        print("Failure to create socket connection.\n")
     
     #Checks if site is down
     port = 80
     try:
         host_ip = socket.gethostbyname('www.finance.yahoo.com')
-        print("Success resolving the host.")
+        print("Success resolving the host.\n")
         s.connect((host_ip,port)) #Use acquired IP to connect
-        print("Success connecting to IP: %s on port: %s." %(host_ip,port))
+        print("Success connecting to IP: %s on port: %s.\n" %(host_ip,port))
     except:
-        print("Error resolving host.")
+        print("Error resolving host.\n")
         sys.exit()
     s.close()
 
 def checkWebsiteStatus(url):
+    print("Check website status.\n")
     req = requests.get(url)
     if req.status_code == 200:
+        print("Request fulfilled.\n")
         return True
     else:
+        print("Request failed.\n")
         return False
 
 def readFileLine(line, stockParam):
-    if(line != 'Date,Open,High,Low,Close,Adj Close,Volume\n'):
-        lineSplit = line.strip().split(',')
+    print("Reading file line by line into stock object.\n")
+    if line != 'Date,Open,High,Low,Close,Adj Close,Volume\n':
         #Note: Stock data does not include weekends or national holidays or days where Stock Market is closed
         stockDataTime = datetime.date(int(line[:4]), int(line[5:7]), int(line[8:10]))
-        #dataPoint = Data('AMD', stockDataTime,
-        #                float(line.strip().split(',')[1]),
-        #                float(line.strip().split(',')[2]),
-        #                float(line.strip().split(',')[3]),
-        #                float(line.strip().split(',')[4]),
-        #                float(line.strip().split(',')[5]),
-        #                float(line.strip().split(',')[6]))
-        #listOfStocks[stockName].append(dataPoint)
         stockParam.addStockInformation(stockDataTime,
                                   float(line.strip().split(',')[1]),
                                   float(line.strip().split(',')[2]),
@@ -63,20 +59,23 @@ def readFileLine(line, stockParam):
                                   float(line.strip().split(',')[5]),
                                   float(line.strip().split(',')[6]))
 
-def getStockData(stockName,listOfStocks):
+def getStockData(stockName,userStartDateInput,userEndDateInput,listOfStocks):
     #Start date of data (In Unix Timecoding)
-    #Starts at Wednesday November 1, 2017 5:00 AM
-    historyPeriod1 = '1509512400'
+    historyPeriod1 = userStartDateInput
     #End date of data (In Unix Timecoding)
-    #Ends at Tuesday November 15, 2017 5:00 AM
-    historyPeriod2 = '1510722000'
-
-    if checkWebsiteStatus('https://finance.yahoo.com') is True:
-        #url of website
-        url = 'https://finance.yahoo.com/quote/' + stockName + '/history?period1=' + historyPeriod1 + '&period2=' + historyPeriod2 + '&interval=1d&filter=history&frequency=1d'
-        stockRead_file_path = '/home/calvin/python_projects/stockProject/scripts/Stock-Data/' + stockName + '.csv'
-        #Obtain html file
-        if not os.path.exists(stockRead_file_path):
+    historyPeriod2 = userEndDateInput
+    #Get path of where stock data csv file will be (used to determine if file exists; if not, then file will be downloaded to this path).
+    stockRead_file_path = ""
+    if sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
+        stockRead_file_path = os.getcwd() + "\Stock-Data\\" + stockName + '.csv'
+    else:
+        stockRead_file_path = os.getcwd() + "/Stock-Data/" + stockName + '.csv'
+    #Obtain file
+    if not os.path.exists(stockRead_file_path):
+        print("File does not exist. Attempting to download from Yahoo.\n")
+        if checkWebsiteStatus('https://finance.yahoo.com') is True:
+            #url of website
+            url = 'https://finance.yahoo.com/quote/' + stockName + '/history?period1=' + historyPeriod1 + '&period2=' + historyPeriod2 + '&interval=1d&filter=history&frequency=1d'
             try: 
                 chrome_options = webdriver.ChromeOptions()
                 chrome_options.add_experimental_option('prefs', {'download.default_directory' : '/home/calvin/python_projects/stockProject/scripts/Stock-Data'})
@@ -88,32 +87,47 @@ def getStockData(stockName,listOfStocks):
                 while not os.path.exists(stockRead_file_path):
                     time.sleep(2)
                 driver.quit()
-                print("Success. File downloaded.")
+                print("Success. File downloaded.\n")
             except:
-                print("Error downloading.")
+                print("Error downloading.\n")
+        else:
+            print("Error connecting to " + url + "\nCannot download and read crv file.\n")
+    else:
+        print("File already exists.\n")
+    #Check if stock has data associated with it already or if trying to write over the old data, make sure the start and end dates are not the same.
+    #No lambda necessary for max and min since "key" will be used for comparison (i.e. datetime.date) and NOT the value.
+    if (listOfStocks[stockName] is None) or ((max(listOfStocks[stockName].getTableOfStockData()) != userEndDateInput) and (min(listOfStocks[stockName].getTableOfStockData()) != userStartDateInput)):
+        print("Attempting to read file into Stock object.\n")
         #Read from csv file and write output to text file
         try:
-            fileToRead = open(stockRead_file_path, 'r')
+            fileToRead = open(stockRead_file_path,'r',encoding='utf-8')
         except IOError:
-            print("Error reading and writing files.")
+            print("Error reading and writing files.\n")
         else:
             stock = Stock(stockName)
-            pool = Threadpool(4)
+            #For linux systems
+            try:
+                #Get number of available cores
+                numOfAvailableCore = len(os.sched_getaffinity(0))
+            except Exception as e:
+                print("Unable to get available number of cores. Using default 2.\n")
+                print(e)
+                numOfAvailableCore = 2
+            pool = Threadpool(numOfAvailableCore)
             updateStockDataInformation = partial(readFileLine,stockParam=stock) #stockParam is fixed, readFileLine has 1 argument
-            dataPoint = pool.map(updateStockDataInformation,fileToRead)
+            pool.map(updateStockDataInformation,fileToRead)
             pool.close()
             pool.join()
             fileToRead.close()
-            listOfStocks[stockName] = stock   #Updates listOfStocks dictionary
-            print('Success.')
+            listOfStocks[stockName] = stock   #Updates listOfStocks dictionary with new value for the stockName
+            print('Successfully read and wrote crv data into stock object.\n')
     else:
-        print("Error connecting to " + url)
-
-#Exception for data not downoading and readng
-
-def plotData(listOfStocks,stockName):
-    fig = matplotlib.pyplot.figure()
-    anomaliesPlot = fig.add_subplot(1,1,1)
+        print("This stock already has data associated with it.")
+        
+def plotStockData(listOfStocks,stockName):
+    print("Ploting anamolies in Stock Data.\n")
+    fig = mPlot.figure()
+    ax = fig.add_subplot(1,1,1)
     fig.suptitle('Anamolies in Stock Data', fontsize=12, fontweight='bold')
 
     stockDates = []
@@ -125,35 +139,28 @@ def plotData(listOfStocks,stockName):
 
     stock_Key = listOfStocks[stockName]
 
-    prevVolume = None
-    for key in stock_Key.getTableOfStockData:    #key = date, value = list of stock information
-        yErrPlotPoint = (stock_Key.lowOpenDifference(key), stock_Key.highOpenDifference(key))
-        yErrPlotList.append(yErrPlotPoint)
-        stockDates.append(key)
-        stockOpenPrices.append(stock_Key.getDate_Open(key))
-        if (stock_Key.openCloseDifferencePercentage(key) > 5) and (prevVolume is not None) and (
-            (((abs(stock_Key.getVolume(key) - prevVolume))/(stock_Key.getVolume(key)))*100) > 50):
-            anomaliesOpenList.append(stock_Key.getDate_Open(key))
-            anomaliesDateList.append(key)
-        prevVolume = stock_Key.getDate_Volume(key)
-
-    yerr = numpy.array(yErrPlotList).T
-
-    anomaliesPlot.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%m/%d/%Y'))
-    fig.autofmt_xdate()
-    #anomaliesPlot.xaxis.set_major_locator(matplotlib.dates.WeekdayLocator())
-    anomaliesPlot.set_xlabel('Date', fontsize=12)
-    anomaliesPlot.set_ylabel('Price', fontsize=12)
-    anomaliesPlot.errorbar(stockDates, stockOpenPrices, yerr, fmt='ko', markersize=3, elinewidth=1, capsize=2, ecolor='black', zorder=1, label='Stock High-Open-Low Prices')
-    anomaliesPlot.scatter(anomaliesDateList, anomaliesOpenList, marker='^', c='red', s=36, zorder=10, label='Stock Anomalies')
-    anomaliesPlot.grid('on')
-    anomaliesPlot.set_axisbelow(True)
-    anomaliesPlot.legend(loc='upper right')
-    matplotlib.pyplot.show()
-
-def main():
-    print("Hello World\n")
-
-if __main__ == "__main__": 
-    sys.exit(int(main() or 0))
-
+    if stock_Key is not None:
+        prevVolume = None
+        for key in stock_Key.getTableOfStockData:    #key = date, value = list of stock information
+            yErrPlotPoint = (stock_Key.lowOpenDifference(key), stock_Key.highOpenDifference(key))
+            yErrPlotList.append(yErrPlotPoint)
+            stockDates.append(key)
+            stockOpenPrices.append(stock_Key.getDate_Open(key))
+            if (stock_Key.openCloseDifferencePercentage(key) > 5) and (prevVolume is not None) and (
+                (((abs(stock_Key.getVolume(key) - prevVolume))/(stock_Key.getVolume(key)))*100) > 50):
+                anomaliesOpenList.append(stock_Key.getDate_Open(key))
+                anomaliesDateList.append(key)
+            prevVolume = stock_Key.getDate_Volume(key)
+        yerr = np.array(yErrPlotList).T
+        ax.xaxis.set_major_formatter(mDates.DateFormatter('%m/%d/%Y'))
+        fig.autofmt_xdate()
+        ax.set_xlabel('Date', fontsize=12)
+        ax.set_ylabel('Price', fontsize=12)
+        ax.errorbar(stockDates, stockOpenPrices, yerr, fmt='ko', markersize=3, elinewidth=1, capsize=2, ecolor='black', zorder=1, label='Stock High-Open-Low Prices')
+        ax.scatter(anomaliesDateList, anomaliesOpenList, marker='^', c='red', s=36, zorder=10, label='Stock Anomalies')
+        ax.grid('on')
+        ax.set_axisbelow(True)
+        ax.legend(loc='upper right')
+        mPlot.show()
+    else:
+        print("There is no data to plot.\n")

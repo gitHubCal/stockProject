@@ -1,3 +1,6 @@
+#!../bin/python3
+#Invoke interpreter directly from miniconda env in directory i.e. /home/calvin/python_projects/stockProject
+
 class Stock:
     def __init__(self, nameOfStock):
         self.__nameOfStock = nameOfStock

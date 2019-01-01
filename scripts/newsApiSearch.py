@@ -1,3 +1,6 @@
+#!../bin/python3
+#Invoke interpreter directly from miniconda env in directory i.e. /home/calvin/python_projects/stockProject
+
 import requests
 import urllib.parse
 import json
@@ -11,10 +14,10 @@ def newsApiSearch(**kwargs):
 
     query = kwargs['query']
     oldestDate = kwargs['oldestDate']   #from for real-time-data update date to recent one
-    newestDate = kwargs['newestDate']   #to
+    newestDate = kwargs['newestDate']   
     language = kwargs['language']
     sortBy = kwargs['sortBy']
-    sources = kwargs['sources']
+    #sources = kwargs['sources']
     page = kwargs['page']
 
     queryParam = urllib.parse.quote(query)

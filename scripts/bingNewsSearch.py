@@ -1,3 +1,5 @@
+#!../bin/python3
+#Invoke interpreter directly from miniconda env in directory i.e. /home/calvin/python_projects/stockProject
 # -*- coding: utf-8 -*-
 
 import http.client, urllib.parse, json
@@ -23,26 +25,3 @@ def BingNewsSearch(**kwargs):
     search_results = response.json()
     #print(json.dumps(search_results, indent=4))
     return search_results
-
-    ## Verify the endpoint URI.  At this writing, only one endpoint is used for Bing
-    ## search APIs.  In the future, regional endpoints may be available.  If you
-    ## encounter unexpected authorization errors, double-check this value against
-    ## the endpoint for your Bing search instance in your Azure dashboard.
-    #host = "api.cognitive.microsoft.com"
-    #path = "/bing/v7.0/news/search"    
-    #headers = {'Ocp-Apim-Subscription-Key': subscriptionKey, 'BingAPIs-Market' : 'en-US'}
-
-    #conn = http.client.HTTPSConnection(host)
-
-    #searchParam = urllib.parse.quote(kwargs['search'])
-    #countParam = urllib.parse.quote(kwargs['count'])
-    #safeSearchParam = urllib.parse.quote(kwargs['safeSearch'])
-    #setLanguageParam = urllib.parse.quote(kwargs['setLanguage'])
-
-    #conn.request("GET", path + "?q=" + searchParam
-    #                         + "&count=" + countParam
-    #                         + "&safeSearch=" + safeSearchParam
-    #                         + "&setLang=" + setLanguageParam,
-    #             headers=headers)
-    #response = conn.getresponse()
-    #return response.read().decode("utf8")
