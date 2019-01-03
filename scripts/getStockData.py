@@ -69,7 +69,7 @@ def getStockData(stockName,userStartDateInput,userEndDateInput,listOfStocks):
     if sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
         stockRead_file_path = os.getcwd() + "\Stock-Data\\" + stockName + '.csv'
     else:
-        stockRead_file_path = os.getcwd() + "/Stock-Data/" + stockName + '.csv'
+        stockRead_file_path = os.getcwd() + "/Stock-Data/" + stockName + '.csv' #For Unix and FreeBSD
     #Obtain file
     if not os.path.exists(stockRead_file_path):
         print("File does not exist. Attempting to download from Yahoo.\n")
@@ -78,7 +78,7 @@ def getStockData(stockName,userStartDateInput,userEndDateInput,listOfStocks):
             url = 'https://finance.yahoo.com/quote/' + stockName + '/history?period1=' + historyPeriod1 + '&period2=' + historyPeriod2 + '&interval=1d&filter=history&frequency=1d'
             try: 
                 chrome_options = webdriver.ChromeOptions()
-                chrome_options.add_experimental_option('prefs', {'download.default_directory' : '/home/calvin/python_projects/stockProject/scripts/Stock-Data'})
+                chrome_options.add_experimental_option('prefs', {'download.default_directory' : stockRead_file_path})
                 driver = webdriver.Chrome(chrome_options=chrome_options)
                 driver.get(url)
                 downloadHistoryButton = driver.find_element_by_link_text('Download Data')
