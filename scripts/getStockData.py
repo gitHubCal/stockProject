@@ -65,7 +65,6 @@ def getStockData(stockName,userStartDateInput,userEndDateInput,listOfStocks):
     #End date of data (In Unix Timecoding)
     historyPeriod2 = userEndDateInput
     #Get path of where stock data csv file will be (used to determine if file exists; if not, then file will be downloaded to this path).
-    stockRead_file_path = ""
     if sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
         stockRead_file_path = os.getcwd() + "\Stock-Data\\" + stockName + '.csv'
     else:
@@ -78,14 +77,26 @@ def getStockData(stockName,userStartDateInput,userEndDateInput,listOfStocks):
             url = 'https://finance.yahoo.com/quote/' + stockName + '/history?period1=' + historyPeriod1 + '&period2=' + historyPeriod2 + '&interval=1d&filter=history&frequency=1d'
             try: 
                 chrome_options = webdriver.ChromeOptions()
-                chrome_options.add_experimental_option('prefs', {'download.default_directory' : stockRead_file_path})
+                if sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
+                    download_path = os.getcwd() + "\Stock-Data"
+                else:
+                    download_path = os.getcwd() + "/Stock-Data" #For Unix and FreeBSD
+                chrome_options.add_experimental_option('prefs', {'download.default_directory' : download_path})
                 driver = webdriver.Chrome(chrome_options=chrome_options)
                 driver.get(url)
                 downloadHistoryButton = driver.find_element_by_link_text('Download Data')
                 downloadHistoryButton.click()
-                #Makes sure download is complete before closing browser
-                while not os.path.exists(stockRead_file_path):
-                    time.sleep(2)
+                #Old path (if it exists) becomes new download path.
+                if sys.platform.startswith('win32') or sys.platform.startswith('cygwin'):
+                    stockRead_file_path = download_path + "\\" + stockName + '.csv'
+                    #Makes sure download is complete before closing browser
+                    while not os.path.exists(stockRead_file_path):
+                        time.sleep(2)
+                else:
+                    stockRead_file_path = download_path + "/" + stockName + '.csv' #For Unix and FreeBSD
+                    #Makes sure download is complete before closing browser
+                    while not os.path.exists(stockRead_file_path):
+                        time.sleep(2)
                 driver.quit()
                 print("Success. File downloaded.\n")
             except:
@@ -121,8 +132,10 @@ def getStockData(stockName,userStartDateInput,userEndDateInput,listOfStocks):
             fileToRead.close()
             listOfStocks[stockName] = stock   #Updates listOfStocks dictionary with new value for the stockName
             print('Successfully read and wrote crv data into stock object.\n')
+    elif (listOfStocks[stockName] is not None) or ((max(listOfStocks[stockName].getTableOfStockData()) == userEndDateInput) and (min(listOfStocks[stockName].getTableOfStockData()) == userStartDateInput)):
+        print("This stock already has the same data associated with it.\n")
     else:
-        print("This stock already has data associated with it.")
+        print("Data was not read.\n")
         
 def plotStockData(listOfStocks,stockName):
     print("Ploting anamolies in Stock Data.\n")
